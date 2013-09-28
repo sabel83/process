@@ -79,10 +79,7 @@ BOOST_AUTO_TEST_CASE(test_invalid_command)
 
   const vector<string> cmd(1, "/some_invalid_command");
 
-  const output o = run(cmd, "");
-
-  BOOST_CHECK_EQUAL("", o.standard_output());
-  BOOST_CHECK_EQUAL("", o.standard_error());
+  BOOST_CHECK_THROW(run(cmd, ""), process::exception);
 }
 
 

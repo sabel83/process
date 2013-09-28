@@ -9,6 +9,7 @@
 #include <boost/utility.hpp>
 
 #include <unistd.h>
+#include <fcntl.h>
 
 #include <cassert>
 
@@ -49,6 +50,11 @@ namespace process
       void use_as(int fd_)
       {
         dup2(_fd, fd_);
+      }
+
+      void close_on_exec()
+      {
+        fcntl(_fd, F_SETFD, fcntl(_fd, F_GETFD) | FD_CLOEXEC);
       }
     private:
       int _fd;
